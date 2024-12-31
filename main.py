@@ -1,23 +1,22 @@
-from typing import Union
+from typing import List
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import json
+from pathlib import Path
 
 app = FastAPI()
 
-
-class Item(BaseModel):
-    name: str
-    price: float
-    is_offer: Union[bool, None] = None
-
+with open('car.json') as f:
+    cars = json.load(f)
+class Car(BaseModel):
+    id: int
+    brand: str
+    model: str
+    available_date: str
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
-
-with open('car.json') as f:
-    cars = json.load(f)
 
 @app.get("/cars/{car_id}")
 def read_car(car_id: int):
@@ -26,7 +25,7 @@ def read_car(car_id: int):
         raise HTTPException(status_code=404, detail="Car not found")
     return car
 
-@app.get("/available_cars/")
+@app.get("/available_cars/", response_model=List[Car])
 def get_available_cars(date: str):
     available_cars = [car for car in cars if car["available_date"] == date]
     if not available_cars:
