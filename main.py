@@ -13,6 +13,8 @@ app = FastAPI()
 
 with open('car.json') as f:
     cars = json.load(f)
+with open('booking.json', "r") as file:
+    bookings = json.load(file)
 class Car(BaseModel):
     id: int
     brand: str
@@ -48,13 +50,6 @@ def get_available_cars(date: str):
 @app.post("/create_booking/")
 def create_booking(booking: Booking):
     logger.info(f"Creating booking for car ID: {booking.car_id} on date: {booking.date}")
-    cars_path = Path("car.json")
-    bookings_path = Path("booking.json")
-
-    with open(cars_path, "r") as file:
-        cars = json.load(file)
-    with open(bookings_path, "r") as file:
-        bookings = json.load(file)
 
     car = next((car for car in cars if car["id"] == booking.car_id), None)
     if not car:
@@ -68,7 +63,7 @@ def create_booking(booking: Booking):
 
     new_booking = {"car_id": booking.car_id, "date": booking.date}
     bookings.append(new_booking)
-    with open(bookings_path, "w") as file:
+    with open('booking.json', "w") as file:
         json.dump(bookings, file, indent=4)
 
     logger.info(f"Booking created successfully: {new_booking}")
