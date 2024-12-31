@@ -25,3 +25,10 @@ def read_car(car_id: int):
     if car is None:
         raise HTTPException(status_code=404, detail="Car not found")
     return car
+
+@app.get("/available_cars/")
+def get_available_cars(date: str):
+    available_cars = [car for car in cars if car["available_date"] == date]
+    if not available_cars:
+        raise HTTPException(status_code=404, detail="No cars available on this date")
+    return available_cars
