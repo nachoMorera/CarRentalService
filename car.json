@@ -1,0 +1,8 @@
+[
+    {"id": 0, "brand": "VW", "model": "T-Rock", "available_date": "2025-01-01"},
+    {"id": 1, "brand": "VW", "model": "Tiguan", "available_date": "2025-01-02"},
+    {"id": 2, "brand": "VW", "model": "Golf", "available_date": "2025-01-03"},
+    {"id": 3, "brand": "Tesla", "model": "Model 3", "available_date": "2025-01-04"},
+    {"id": 4, "brand": "Tesla", "model": "Model S", "available_date": "2025-01-05"},
+    {"id": 5, "brand": "Tesla", "model": "Model y", "available_date": "2025-01-06"}
+]
